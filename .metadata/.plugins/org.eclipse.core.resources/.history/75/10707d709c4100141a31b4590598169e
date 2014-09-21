@@ -1,0 +1,15 @@
+package todo;
+
+public class Time {
+	int time;
+	
+	public Time() {
+		
+	}
+	public void update() {
+		
+	}
+	public void setTime() {
+		
+	}
+}

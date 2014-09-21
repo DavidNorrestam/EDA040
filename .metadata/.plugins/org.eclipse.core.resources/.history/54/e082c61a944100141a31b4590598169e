@@ -1,0 +1,90 @@
+package todo;
+import done.*;
+import se.lth.cs.realtime.semaphore.Semaphore;
+import se.lth.cs.realtime.semaphore.MutexSem;
+
+public class AlarmClock extends Thread throws Exception{
+	private static final int UNINITIALIZED = -1;
+	private static ClockInput	input;
+	private static ClockOutput	output;
+	private static Semaphore	sem; 
+	
+	private int lastChoice; 
+
+	public AlarmClock(ClockInput i, ClockOutput o) {
+		input = i;
+		output = o;
+		sem = input.getSemaphoreInstance();
+		lastChoice = UNINITIALIZED;
+	}
+	
+	// The AlarmClock thread is started by the simulator. No
+	// need to start it by yourself, if you do you will get
+	// an IllegalThreadStateException. The implementation
+	// below is a simple alarmclock thread that beeps upon 
+	// each keypress. To be modified in the lab.
+	public void run() {
+		// Start new thread that handles updating of time
+		TimeUpdater timeUpdater = new TimeUpdater();
+		timeUpdater.start();
+		
+		// Run while AlarmClock thread does not get interrupted
+		while (!this.isInterrupted()) {
+			// Wait for user interaction
+			sem.take();
+			switch(input.getChoice()) {
+			case ClockInput.SET_ALARM:
+				setAlarm();
+				break;
+			case ClockInput.SET_TIME:
+				setTime();
+				break;
+			case ClockInput.SHOW_TIME:
+				showTime();
+				break;
+			default:
+				throw new Exception();
+			}
+		}
+		
+		// Interrupt timeUpdater thread and wait for it to terminate.
+		timeUpdater.interrupt();
+		while(timeUpdater.isAlive()){
+			try {
+				timeUpdater.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+		}
+		// Return, program shuts down
+	}
+	
+	private void showTime() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void setTime() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void setAlarm() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	// Should wait for AlarmClock thread to terminate. Correct syntax?
+	public void terminate() {
+		this.interrupt();
+		while(this.isAlive()) {
+			try {
+				this.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+		}
+	}
+}

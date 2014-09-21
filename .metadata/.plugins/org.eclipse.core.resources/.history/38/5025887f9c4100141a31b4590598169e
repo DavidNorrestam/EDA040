@@ -1,0 +1,17 @@
+package todo;
+
+public class Time {
+	int time;
+	long startTime;
+	
+	public Time() {
+		time = 0;
+		startTime = System.currentTimeMillis()
+	}
+	public void update() {
+		
+	}
+	public void setTime(int time) {
+		this.time = time;
+	}
+}

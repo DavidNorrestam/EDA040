@@ -1,0 +1,10 @@
+package todo;
+
+public class Time {
+	public void update() {
+		
+	}
+	public void setTime() {
+		
+	}
+}
