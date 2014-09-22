@@ -12,7 +12,7 @@ public class Time {
 	}
 	public void update() {
 		long diff = System.currentTimeMillis() - latestUpdate;
-		latestUpdate += diff;
+		latestUpdate = System.currentTimeMillis();
 		update(diff);
 	}
 	public void setTime(int time) {

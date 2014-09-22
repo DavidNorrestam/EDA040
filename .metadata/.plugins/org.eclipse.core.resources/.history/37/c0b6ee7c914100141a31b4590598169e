@@ -1,9 +1,0 @@
-package todo;
-
-public class TimeUpdater extends Thread {
-	public void run() {
-		while(true) {
-			// Update time every second
-		}
-	}
-}
